@@ -1,0 +1,2582 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0a0e14">
+<title>LUX — Lighting Studio</title>
+<style>
+/* ==============================================================
+   LUX LIGHTING STUDIO PRO — UNIVERSAL RESPONSIVE EDITION
+   Architecture: Adaptive Multi-Device Design System
+   Supports: Mobile (320px+), Foldables, Tablets, Laptops, Desktops, Ultrawide (4K)
+   ============================================================== */
+
+:root {
+  color-scheme: dark;
+  --bg: #06080d;
+  --surface: rgba(16, 22, 34, 0.75);
+  --surface-hover: rgba(22, 30, 46, 0.85);
+  --surface-raised: #141b2a;
+  --surface-card: #0d121c;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.04);
+  --border-focus: #10b981;
+  
+  --ink: #ffffff;
+  --ink-secondary: #94a3b8;
+  --ink-muted: #64748b;
+  --ink-faint: #334155;
+  
+  --accent: #10b981;
+  --accent-light: #34d399;
+  --accent-dark: #059669;
+  --accent-glow: rgba(16, 185, 129, 0.28);
+  --accent-cyan: #06b6d4;
+  
+  --good: #10b981;
+  --good-bg: rgba(16, 185, 129, 0.12);
+  --good-border: rgba(16, 185, 129, 0.3);
+  
+  --warn: #f59e0b;
+  --warn-bg: rgba(245, 158, 11, 0.12);
+  --warn-border: rgba(245, 158, 11, 0.3);
+  
+  --bad: #f43f5e;
+  
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 26px;
+  
+  --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  --shadow-dock: 0 -12px 35px rgba(0, 0, 0, 0.75), 0 -1px 0 rgba(255, 255, 255, 0.08);
+
+  --app-pad: 14px;
+  --topbar-h: 64px;
+}
+
+@media (min-width: 480px) {
+  :root { --app-pad: 18px; }
+}
+@media (min-width: 768px) {
+  :root { --app-pad: 24px; --topbar-h: 68px; }
+}
+@media (min-width: 1200px) {
+  :root { --app-pad: 32px; --topbar-h: 70px; }
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  background: var(--bg);
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--topbar-h) + 70px);
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse at 50% -15%, rgba(16, 185, 129, 0.14), transparent 55%),
+    radial-gradient(ellipse at 100% 50%, rgba(6, 182, 212, 0.06), transparent 45%),
+    linear-gradient(180deg, #070a10 0%, #05070a 100%);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button, input, select {
+  font: inherit;
+  color: inherit;
+}
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+/* ── Universal Responsive App Container ── */
+.app {
+  width: 100%;
+  max-width: 1480px;
+  margin: 0 auto;
+  padding: 0 var(--app-pad) calc(105px + env(safe-area-inset-bottom));
+  transition: padding 0.2s ease;
+}
+
+/* ── Adaptive Topbar Navigation Header ── */
+.topbar {
+  height: var(--topbar-h);
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 calc(-1 * var(--app-pad)) 16px;
+  padding: 0 var(--app-pad);
+  background: rgba(7, 10, 16, 0.88);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  transition: all 0.2s ease;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 850;
+  letter-spacing: -0.04em;
+  color: #fff;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.bolt {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #04140e;
+  font-size: 17px;
+  font-weight: 950;
+  box-shadow: 0 0 16px var(--accent-glow), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  flex-shrink: 0;
+}
+
+.brand-sub {
+  color: var(--ink-muted);
+  font-size: 9px;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* ── Unit Switcher ── */
+.unit-toggle {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
+}
+
+.unit-toggle button {
+  min-width: 34px;
+  padding: 5px 9px;
+  border-radius: 7px;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--ink-secondary);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.unit-toggle button.active {
+  background: var(--accent);
+  color: #04140e;
+  font-weight: 900;
+  box-shadow: 0 2px 8px var(--accent-glow);
+}
+
+/* ── Topbar Action / Print Report Button ── */
+.topbar-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  min-height: 32px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  color: var(--ink-secondary);
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.02em;
+  transition: all 0.2s ease;
+}
+
+.topbar-action-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 400px) {
+  .topbar-action-btn .btn-text {
+    display: none;
+  }
+  .topbar-action-btn {
+    padding: 6px 8px;
+  }
+}
+
+.tag, .topnote, .hero { display: none }
+.mobile-header-mark { display: none }
+
+/* ── Sticky Live Status HUD (Adaptive Cockpit Widget) ── */
+.sticky-hud {
+  position: sticky;
+  top: var(--topbar-h);
+  z-index: 450;
+  margin: 0 0 16px;
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  background: rgba(13, 18, 28, 0.94);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 0 20px rgba(16, 185, 129, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.sticky-hud:hover {
+  border-color: rgba(16, 185, 129, 0.55);
+  box-shadow: 0 12px 30px -5px rgba(0, 0, 0, 0.7), 0 0 25px rgba(16, 185, 129, 0.14);
+}
+
+.sticky-hud-left {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.hud-big-num {
+  font-size: clamp(20px, 4vw, 26px);
+  font-weight: 950;
+  letter-spacing: -0.05em;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.hud-big-num span {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-left: 3px;
+}
+
+.hud-lux-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--ink-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.hud-status-chip {
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--good-bg);
+  border: 1px solid var(--good-border);
+  color: var(--good);
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.25);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.hud-status-chip.warn {
+  background: var(--warn-bg);
+  border-color: var(--warn-border);
+  color: var(--warn);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.25);
+}
+
+@media (max-width: 360px) {
+  .sticky-hud {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+  .hud-big-num {
+    font-size: 19px;
+  }
+  .hud-status-chip {
+    font-size: 8px;
+    padding: 4px 7px;
+  }
+}
+
+/* ── Core Layout System & Responsive Grid ── */
+.layout, .lux-dashboard-grid {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+  width: 100% !important;
+  max-width: 660px;
+  margin: 0 auto;
+}
+
+main.stack:empty, aside.stack:empty {
+  display: none !important;
+}
+
+.mobile-screen {
+  display: block !important;
+  width: 100% !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.mobile-screen-heading, .mobile-nav { display: none !important }
+
+/* Mobile sequence: Room -> Luminaire -> Results -> Spatial Layout -> Energy */
+.mobile-screen[data-screen="room"] { order: 1; }
+.mobile-screen[data-screen="fixtures"] { order: 2; }
+.mobile-screen[data-screen="results"] { order: 3; }
+.mobile-screen[data-screen="layout"] { order: 4; }
+.mobile-screen[data-screen="energy"] { order: 5; }
+
+/* ── Tablet & Desktop 2-Column Professional Studio Workstation ── */
+@media (min-width: 992px) {
+  .layout, .lux-dashboard-grid {
+    display: grid !important;
+    grid-template-columns: minmax(380px, 460px) minmax(460px, 1fr) !important;
+    gap: 22px !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    align-items: start !important;
+  }
+
+  /* Left Column: Specifications & Configuration */
+  .mobile-screen[data-screen="room"] {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    order: unset !important;
+  }
+  .mobile-screen[data-screen="fixtures"] {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    order: unset !important;
+  }
+  .mobile-screen[data-screen="energy"] {
+    grid-column: 1 !important;
+    grid-row: 3 !important;
+    order: unset !important;
+  }
+
+  /* Right Column: Live Engineering Outputs & Spatial CAD Preview */
+  .mobile-screen[data-screen="results"] {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    order: unset !important;
+  }
+  .mobile-screen[data-screen="layout"] {
+    grid-column: 2 !important;
+    grid-row: 2 / span 2 !important;
+    order: unset !important;
+  }
+}
+
+@media (min-width: 1440px) {
+  .layout, .lux-dashboard-grid {
+    grid-template-columns: 480px 1fr !important;
+    gap: 28px !important;
+  }
+}
+
+/* ── Card Styles ── */
+.card {
+  position: relative;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+  padding: 18px 16px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: all 0.2s ease;
+}
+
+@media (min-width: 768px) {
+  .card {
+    padding: 22px 20px;
+  }
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 18px; right: 18px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+  pointer-events: none;
+}
+
+.card-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.card-head > div { flex: 1; min-width: 0 }
+
+.step {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  color: var(--accent-light);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  box-shadow: inset 0 0 8px rgba(16, 185, 129, 0.1);
+}
+
+.card h2 {
+  font-size: 15px;
+  font-weight: 850;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin-bottom: 1px;
+}
+
+.desc {
+  color: var(--ink-muted);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.card-index {
+  flex: none;
+  padding: 3px 7px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  color: var(--ink-muted);
+  font-size: 7.5px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ── Responsive Form Fields ── */
+.fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 10px;
+}
+
+#room-card .fields.three {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 10px;
+}
+
+.field { min-width: 0; position: relative }
+
+/* Full-width for Task and Fixture Presets */
+.field:has(#task), .field:has(#fixture) {
+  grid-column: span 2;
+}
+
+@media (max-width: 360px) {
+  .fields, #room-card .fields.three {
+    grid-template-columns: 1fr !important;
+  }
+  .field:has(#task), .field:has(#fixture) {
+    grid-column: span 1 !important;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 991px) {
+  #room-card .fields.three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .field:has(#task), .field:has(#fixture) {
+    grid-column: 1 / -1;
+  }
+}
+
+.field label {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 750;
+  color: var(--ink-secondary);
+  letter-spacing: 0.02em;
+  margin-bottom: 5px;
+}
+
+.field label .unit-label {
+  color: var(--accent);
+  font-weight: 850;
+}
+
+.field small {
+  display: block;
+  margin-top: 4px;
+  color: var(--ink-muted);
+  font-size: 9px;
+  line-height: 1.35;
+}
+
+/* Section Header Dividers */
+.field:has(#task)::before {
+  content: "✦ TASK & PHOTOMETRIC TARGET";
+  display: block;
+  color: var(--accent-cyan);
+  font-size: 8px;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+  margin-bottom: 6px;
+}
+
+.field:has(#lux)::before {
+  content: "✦ DESIGN FACTORS";
+  display: block;
+  color: var(--accent-light);
+  font-size: 8px;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+  margin-bottom: 6px;
+}
+
+/* Touch-optimized inputs (minimum 48px height for touch ergonomics) */
+input, .select-shell > .lux-select-trigger {
+  width: 100%;
+  min-height: 48px;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  background: rgba(10, 14, 22, 0.75);
+  border: 1px solid var(--border);
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 600;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.35);
+  outline: none;
+}
+
+/* Prevent unwanted iOS Safari auto-zoom on input focus by ensuring >= 16px on mobile */
+@media (max-width: 767px) {
+  input, .select-shell > .lux-select-trigger {
+    font-size: 16px;
+  }
+}
+
+input:hover, .select-shell > .lux-select-trigger:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(14, 18, 28, 0.9);
+}
+
+input:focus, .select-shell > .lux-select-trigger:focus-visible {
+  border-color: var(--accent);
+  background: rgba(15, 20, 32, 0.95);
+  box-shadow: 0 0 0 3px var(--accent-glow), inset 0 2px 4px rgba(0,0,0,0.4);
+}
+
+input[type=number] {
+  font-variant-numeric: tabular-nums;
+  -moz-appearance: textfield;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ── Custom Select System with Optgroups ── */
+select.lux-native-select {
+  position: absolute !important;
+  left: 0 !important; top: 0 !important;
+  width: 1px !important; height: 1px !important;
+  opacity: 0 !important; pointer-events: none !important;
+  overflow: hidden !important; padding: 0 !important; border: 0 !important;
+}
+
+.select-shell {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+.lux-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  text-align: left;
+}
+
+.lux-select-value {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.lux-select-chevron {
+  width: 8px;
+  height: 8px;
+  flex: none;
+  border-right: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.select-shell.open .lux-select-chevron {
+  transform: rotate(225deg) translate(-1px, -1px);
+}
+
+.select-shell.open > .lux-select-trigger {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.lux-select-menu {
+  position: fixed !important;
+  z-index: 2500 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  overflow-x: hidden !important;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  -webkit-overflow-scrolling: touch;
+  box-sizing: border-box;
+  padding: 6px;
+  border-radius: var(--radius-md);
+  background: rgba(14, 19, 30, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(16, 185, 129, 0.4) rgba(10, 14, 22, 0.8);
+  animation: lux-menu-appear 0.16s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes lux-menu-appear {
+  from { opacity: 0; transform: translateY(4px) scale(0.99); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.lux-select-menu[hidden] { display: none !important }
+
+.lux-select-group-header {
+  padding: 8px 12px 4px;
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  margin-top: 4px;
+  pointer-events: none;
+}
+.lux-select-group-header:first-child {
+  margin-top: 0;
+}
+
+.lux-select-option {
+  position: relative;
+  display: block;
+  flex: 0 0 auto;
+  width: 100%;
+  min-height: 42px;
+  padding: 11px 32px 11px 12px;
+  border-radius: 9px;
+  color: var(--ink-secondary);
+  text-align: left;
+  font-size: 12.5px;
+  font-weight: 600;
+  line-height: 1.45;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+  transition: all 0.14s ease;
+}
+
+.lux-select-option:hover, .lux-select-option:focus-visible {
+  outline: none;
+  background: rgba(16, 185, 129, 0.14);
+  color: #fff;
+}
+
+.lux-select-option[aria-selected="true"] {
+  background: rgba(16, 185, 129, 0.22);
+  color: var(--accent-light);
+  font-weight: 800;
+}
+
+.lux-select-option[aria-selected="true"]::after {
+  content: "✓";
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent);
+  font-weight: 900;
+}
+
+/* ── Reflectance Chips ── */
+.reflectance-reference {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  background: rgba(10, 14, 22, 0.5);
+  border: 1px solid var(--border-subtle);
+}
+
+.reflectance-title {
+  color: var(--ink-muted);
+  font-size: 8px;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.reflectance-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border);
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 850;
+  font-variant-numeric: tabular-nums;
+}
+
+.reflectance-chip small {
+  color: var(--ink-muted);
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  margin-bottom: 2px;
+}
+
+.btn-row, .step-nav-btn {
+  display: none !important;
+}
+
+/* ── RESULTS CARD (Full Telemetry Details Section) ── */
+#results-card {
+  border-color: rgba(16, 185, 129, 0.25);
+  box-shadow: 0 14px 35px -5px rgba(0,0,0,0.6), 0 0 25px rgba(16, 185, 129, 0.05);
+}
+
+.result-hero {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+  padding: 18px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(13, 17, 26, 0.95) 75%);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.result-hero .kicker {
+  color: var(--accent-light);
+  font-size: 8.5px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.big-number {
+  font-size: clamp(30px, 6vw, 44px);
+  font-weight: 950;
+  letter-spacing: -0.06em;
+  line-height: 1;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 2px 14px rgba(16, 185, 129, 0.3);
+}
+
+.big-number span {
+  font-size: 12px;
+  font-weight: 750;
+  color: var(--ink-secondary);
+  letter-spacing: 0;
+  margin-left: 3px;
+}
+
+.status {
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 8.5px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background: var(--good-bg);
+  border: 1px solid var(--good-border);
+  color: var(--good);
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.2);
+  flex-shrink: 0;
+}
+
+.status.warn {
+  background: var(--warn-bg);
+  border-color: var(--warn-border);
+  color: var(--warn);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.2);
+}
+
+/* ── Telemetry Metrics Grid ── */
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+@media (min-width: 560px) {
+  .metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+}
+
+@media (max-width: 340px) {
+  .metrics {
+    grid-template-columns: 1fr;
+  }
+}
+
+.metric {
+  padding: 12px;
+  border-radius: var(--radius-md);
+  background: rgba(10, 14, 22, 0.6);
+  border: 1px solid var(--border);
+}
+
+.metric small {
+  display: block;
+  color: var(--ink-muted);
+  font-size: 8px;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.metric strong {
+  display: block;
+  margin-top: 4px;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.metric em {
+  display: block;
+  margin-top: 2px;
+  color: var(--ink-muted);
+  font-size: 9px;
+  font-style: normal;
+}
+
+/* ── Radial Photometric Gauge ── */
+.mobile-result-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 14px 0;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  background: rgba(10, 14, 22, 0.55);
+  border: 1px solid var(--border-subtle);
+}
+
+.lux-gauge {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: conic-gradient(var(--accent) var(--lux-gauge-angle, 0deg), rgba(255, 255, 255, 0.08) 0deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lux-gauge::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border-radius: 50%;
+  background: var(--surface-card);
+  border: 1px solid var(--border);
+}
+
+.lux-gauge > div {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lux-gauge strong {
+  font-size: 20px;
+  font-weight: 950;
+  color: #fff;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.lux-gauge span {
+  font-size: 8px;
+  font-weight: 850;
+  color: var(--ink-muted);
+  letter-spacing: 0.12em;
+  margin-top: 2px;
+}
+
+.lux-gauge b {
+  margin-top: 4px;
+  font-size: 8.5px;
+  font-weight: 900;
+  padding: 2px 7px;
+  border-radius: 999px;
+  letter-spacing: 0.08em;
+  background: var(--warn-bg);
+  color: var(--warn);
+  border: 1px solid var(--warn-border);
+}
+
+.lux-gauge b.pass {
+  background: var(--good-bg);
+  color: var(--good);
+  border-color: var(--good-border);
+}
+
+/* Formula & Notes */
+.formula {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  background: rgba(8, 11, 18, 0.7);
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--accent-cyan);
+  color: var(--ink-secondary);
+  font-size: 9.5px;
+  line-height: 1.65;
+}
+
+.formula b {
+  color: #fff;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.formula code {
+  color: var(--accent-cyan);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 9px;
+}
+
+.note {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  background: rgba(245, 158, 11, 0.06);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  color: #e2d2a4;
+  font-size: 9px;
+  line-height: 1.55;
+}
+
+.note b { color: #fbbf24 }
+
+/* ── Spatial Fixture Layout Canvas ── */
+.canvas-wrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: #080c14;
+  border: 1px solid var(--border);
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.6);
+}
+
+.canvas-wrap canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 900 / 520;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+  color: var(--ink-muted);
+  font-size: 9.5px;
+}
+
+.dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent-glow);
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+/* ── Adaptive Floating Action Dock ── */
+.mobile-app-dock {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  background: rgba(7, 10, 16, 0.92);
+  border-top: 1px solid var(--border);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  box-shadow: var(--shadow-dock);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 768px) {
+  .mobile-app-dock {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    bottom: 20px;
+    width: auto;
+    min-width: 380px;
+    max-width: 460px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 24px rgba(16, 185, 129, 0.15);
+    padding: 8px 12px;
+  }
+  .dock-btn-calc {
+    min-height: 44px;
+    border-radius: 999px;
+  }
+  .dock-btn-reset {
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+  }
+}
+
+.dock-btn-calc {
+  flex: 1;
+  max-width: 380px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 50px;
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #04140e;
+  font-size: 13px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 18px var(--accent-glow), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dock-btn-calc:hover, .dock-btn-calc:active {
+  transform: translateY(-1px) scale(0.99);
+  filter: brightness(1.08);
+  box-shadow: 0 6px 24px rgba(16, 185, 129, 0.45);
+}
+
+.dock-btn-reset {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  flex: none;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  color: var(--ink-secondary);
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.dock-btn-reset:hover, .dock-btn-reset:active {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  transform: scale(0.96);
+}
+
+/* ── Toast Notification ── */
+.lux-toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(78px + env(safe-area-inset-bottom));
+  transform: translateX(-50%) translateY(10px);
+  z-index: 2200;
+  display: block;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: rgba(14, 20, 32, 0.95);
+  border: 1px solid var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 750;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.lux-toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── Loading Animation ── */
+.dock-btn-calc.is-loading {
+  opacity: 0.8;
+  pointer-events: none;
+}
+.dock-btn-calc.is-loading::after {
+  content: "";
+  display: inline-block;
+  width: 12px; height: 12px;
+  margin-left: 8px;
+  border: 2px solid rgba(0,0,0,0.3);
+  border-top-color: #04140e;
+  border-radius: 50%;
+  animation: lux-spin 0.6s linear infinite;
+}
+@keyframes lux-spin { to { transform: rotate(360deg) } }
+
+/* ── Mobile Landscape Orientation Optimization ── */
+@media (max-height: 520px) and (orientation: landscape) {
+  .topbar {
+    height: 48px;
+    margin-bottom: 8px;
+  }
+  .bolt {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+  .sticky-hud {
+    top: 48px;
+    padding: 6px 12px;
+    margin-bottom: 8px;
+  }
+  .hud-big-num {
+    font-size: 18px;
+  }
+  .card {
+    padding: 12px 14px;
+  }
+  .app {
+    padding-bottom: calc(75px + env(safe-area-inset-bottom));
+  }
+}
+
+/* ── Print & Technical Engineering Submittal Sheet ── */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+  }
+  .app {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+  .topbar {
+    position: static !important;
+    background: transparent !important;
+    border-bottom: 2px solid #0f172a !important;
+    padding: 0 0 12px 0 !important;
+    margin: 0 0 20px 0 !important;
+    color: #0f172a !important;
+  }
+  .logo div {
+    color: #0f172a !important;
+  }
+  .bolt {
+    box-shadow: none !important;
+  }
+  .unit-toggle, .topbar-action-btn, .mobile-app-dock, .sticky-hud, .lux-toast, .btn-row, .step-nav-btn {
+    display: none !important;
+  }
+  .layout, .lux-dashboard-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+  }
+  .card {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    border: 1px solid #cbd5e1 !important;
+    box-shadow: none !important;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .card h2, .big-number, .metric strong {
+    color: #0f172a !important;
+  }
+  .desc, .metric small, .metric em, label, small {
+    color: #475569 !important;
+  }
+  input, .lux-select-trigger {
+    background: #f8fafc !important;
+    color: #0f172a !important;
+    border-color: #cbd5e1 !important;
+    box-shadow: none !important;
+  }
+  .metric {
+    background: #f8fafc !important;
+    border-color: #e2e8f0 !important;
+  }
+  .result-hero {
+    background: #f0fdf4 !important;
+    border-color: #86efac !important;
+  }
+  .canvas-wrap {
+    background: #ffffff !important;
+    border-color: #cbd5e1 !important;
+    box-shadow: none !important;
+  }
+}
+
+/* ── Accessibility ── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* ── HYPER-ANIMATED PRELOADER & STUDIO BOOT SEQUENCE ── */
+.lux-preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #05070c;
+  overflow: hidden;
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.55s ease,
+              visibility 0.65s;
+}
+
+.lux-preloader.loaded {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: scale(1.06);
+  filter: blur(10px);
+}
+
+.preloader-backdrop {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.preloader-grid {
+  position: absolute;
+  inset: -100px;
+  background-image: 
+    linear-gradient(rgba(16, 185, 129, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(16, 185, 129, 0.06) 1px, transparent 1px);
+  background-size: 38px 38px;
+  animation: preloader-grid-scroll 18s linear infinite;
+  mask-image: radial-gradient(circle at 50% 50%, black 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, black 30%, transparent 75%);
+}
+
+@keyframes preloader-grid-scroll {
+  from { transform: translateY(0) rotateX(25deg); }
+  to { transform: translateY(76px) rotateX(25deg); }
+}
+
+.preloader-glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.preloader-glow-orb.orb-1 {
+  width: 380px;
+  height: 380px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.5) 0%, rgba(6, 182, 212, 0.2) 50%, transparent 75%);
+  animation: preloader-orb-pulse 3s ease-in-out infinite alternate;
+}
+
+.preloader-glow-orb.orb-2 {
+  width: 240px;
+  height: 240px;
+  top: 48%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.35) 0%, transparent 70%);
+  animation: preloader-orb-pulse 2.2s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes preloader-orb-pulse {
+  0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.35; }
+  100% { transform: translate(-50%, -50%) scale(1.25); opacity: 0.65; }
+}
+
+.preloader-center {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+}
+
+/* ── Photometric Reactor Animation ── */
+.preloader-reactor {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.reactor-ring {
+  position: absolute;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+.reactor-ring.ring-outer {
+  inset: 0;
+  border: 2px dashed rgba(16, 185, 129, 0.5);
+  box-shadow: 0 0 25px rgba(16, 185, 129, 0.25), inset 0 0 15px rgba(16, 185, 129, 0.15);
+  animation: preloader-spin 6s linear infinite;
+}
+
+.reactor-ring.ring-middle {
+  inset: 14px;
+  border: 2.5px solid transparent;
+  border-top-color: #34d399;
+  border-right-color: rgba(52, 211, 153, 0.2);
+  border-bottom-color: #06b6d4;
+  border-left-color: rgba(6, 182, 212, 0.2);
+  box-shadow: 0 0 20px rgba(52, 211, 153, 0.3);
+  animation: preloader-spin-reverse 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+.reactor-ring.ring-inner {
+  inset: 28px;
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-top-color: #fbbf24;
+  border-bottom-color: #f59e0b;
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+  animation: preloader-spin 3.5s linear infinite;
+}
+
+.reactor-pulse-wave {
+  position: absolute;
+  inset: 25px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-light);
+  box-shadow: 0 0 30px var(--accent);
+  opacity: 0;
+  animation: preloader-shockwave 2.2s cubic-bezier(0.1, 0.85, 0.3, 1) infinite;
+}
+
+@keyframes preloader-shockwave {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  50% { opacity: 0.5; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
+.reactor-core {
+  position: relative;
+  z-index: 5;
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 
+    0 0 30px rgba(16, 185, 129, 0.6),
+    0 0 60px rgba(16, 185, 129, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: preloader-core-pulse 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes preloader-core-pulse {
+  0% {
+    transform: scale(0.92);
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+  100% {
+    transform: scale(1.08);
+    box-shadow: 0 0 40px rgba(16, 185, 129, 0.85), 0 0 70px rgba(52, 211, 153, 0.5), inset 0 1px 0 #fff;
+  }
+}
+
+.reactor-bolt {
+  font-size: 30px;
+  color: #04140e;
+  font-weight: 950;
+  display: inline-block;
+  animation: preloader-bolt-glow 0.9s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+}
+
+@keyframes preloader-bolt-glow {
+  0% { transform: scale(0.92) rotate(-3deg); filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.6)); }
+  100% { transform: scale(1.14) rotate(4deg); filter: drop-shadow(0 0 16px #ffffff) drop-shadow(0 0 28px #34d399); }
+}
+
+@keyframes preloader-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes preloader-spin-reverse {
+  to { transform: rotate(-360deg); }
+}
+
+/* ── Preloader Branding ── */
+.preloader-meta {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.preloader-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.preloader-brand .brand-text {
+  font-size: 26px;
+  font-weight: 950;
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, #ffffff 0%, #34d399 50%, #06b6d4 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: preloader-shimmer 3s linear infinite;
+}
+
+@keyframes preloader-shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.preloader-brand .brand-pill {
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.14);
+  border: 1px solid rgba(16, 185, 129, 0.35);
+  color: var(--accent-light);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.2);
+}
+
+/* ── Animated Cyber Progress Bar with Laser Scan ── */
+.preloader-bar-wrap {
+  width: 100%;
+  max-width: 320px;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgba(10, 15, 24, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+.preloader-bar-track {
+  position: relative;
+  height: 6px;
+  width: 100%;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+.preloader-bar-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #059669 0%, #10b981 50%, #34d399 80%, #a7f3d0 100%);
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.8), 0 0 6px #ffffff;
+  transition: width 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.preloader-bar-glow {
+  position: absolute;
+  top: 0;
+  left: -40px;
+  width: 40px;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.9), transparent);
+  animation: preloader-laser 1.6s ease-in-out infinite;
+}
+
+@keyframes preloader-laser {
+  0% { left: -40px; }
+  100% { left: 100%; }
+}
+
+/* ── Telemetry Status Ticker ── */
+.preloader-telemetry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 320px;
+  font-family: ui-monospace, SFMono-Regular, "SF Pro Text", Menlo, Consolas, monospace;
+}
+
+.telemetry-step {
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  color: var(--accent-cyan);
+  text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  animation: preloader-text-flicker 2s ease infinite;
+}
+
+@keyframes preloader-text-flicker {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 0.65; }
+}
+
+.telemetry-pct {
+  font-size: 11px;
+  font-weight: 900;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+  margin-left: 12px;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ── LUX HYPER-ANIMATED BOOT PRELOADER ── -->
+<div class="lux-preloader" id="luxPreloader" aria-label="Loading LUX Lighting Studio" role="status">
+  <div class="preloader-backdrop">
+    <div class="preloader-grid"></div>
+    <div class="preloader-glow-orb orb-1"></div>
+    <div class="preloader-glow-orb orb-2"></div>
+  </div>
+  
+  <div class="preloader-center">
+    <div class="preloader-reactor">
+      <div class="reactor-ring ring-outer"></div>
+      <div class="reactor-ring ring-middle"></div>
+      <div class="reactor-ring ring-inner"></div>
+      <div class="reactor-pulse-wave"></div>
+      <div class="reactor-core">
+        <span class="reactor-bolt">⚡</span>
+      </div>
+    </div>
+    
+    <div class="preloader-meta">
+      <div class="preloader-brand">
+        <span class="brand-text">LUX</span>
+        <span class="brand-pill">STUDIO PRO</span>
+      </div>
+      
+      <div class="preloader-bar-wrap">
+        <div class="preloader-bar-track">
+          <div class="preloader-bar-fill" id="preloaderBarFill"></div>
+          <div class="preloader-bar-glow"></div>
+        </div>
+      </div>
+      
+      <div class="preloader-telemetry">
+        <span class="telemetry-step" id="preloaderStatusText">INITIALIZING PHOTOMETRICS...</span>
+        <span class="telemetry-pct" id="preloaderPct">0%</span>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  'use strict';
+  var preloader = document.getElementById('luxPreloader');
+  var fill = document.getElementById('preloaderBarFill');
+  var pct = document.getElementById('preloaderPct');
+  var status = document.getElementById('preloaderStatusText');
+  if(!preloader) return;
+
+  var steps = [
+    { at: 12, text: 'INITIALIZING PHOTOMETRIC ENGINE...' },
+    { at: 35, text: 'LOADING 45+ LUMINAIRE PRESETS...' },
+    { at: 65, text: 'CALIBRATING CAVITY RATIOS...' },
+    { at: 88, text: 'SYNCHRONIZING MAINTENANCE FACTORS...' },
+    { at: 100, text: 'STUDIO READY ⚡' }
+  ];
+
+  var startTime = performance.now();
+  var minDuration = 1250; // smooth minimum so animation is appreciated on fresh load & refresh
+  var isDone = false;
+
+  function update() {
+    var elapsed = performance.now() - startTime;
+    var progressRatio = Math.min(1, elapsed / minDuration);
+    
+    // Smooth ease-out cubic curve
+    var eased = 1 - Math.pow(1 - progressRatio, 3);
+    var p = Math.floor(eased * 100);
+
+    if(fill) fill.style.width = p + '%';
+    if(pct) pct.textContent = p + '%';
+
+    for(var i = steps.length - 1; i >= 0; i--){
+      if(p >= steps[i].at){
+        if(status && status.textContent !== steps[i].text){
+          status.textContent = steps[i].text;
+        }
+        break;
+      }
+    }
+
+    if(progressRatio < 1){
+      requestAnimationFrame(update);
+    } else {
+      finish();
+    }
+  }
+
+  function finish() {
+    if(isDone) return;
+    isDone = true;
+    if(fill) fill.style.width = '100%';
+    if(pct) pct.textContent = '100%';
+    if(status) status.textContent = 'STUDIO READY ⚡';
+
+    setTimeout(function(){
+      preloader.classList.add('loaded');
+      setTimeout(function(){
+        try { preloader.remove(); } catch(e){ preloader.style.display = 'none'; }
+      }, 700);
+    }, 240);
+  }
+
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    finish();
+  } else {
+    requestAnimationFrame(update);
+  }
+
+  window.addEventListener('load', function(){
+    setTimeout(finish, minDuration + 200);
+  });
+  setTimeout(finish, 2800);
+})();
+</script>
+<div class="app">
+<header class="topbar">
+  <div class="logo">
+    <span class="bolt">⚡</span>
+    <div>
+      <div>LUX</div>
+      <div class="brand-sub">STUDIO PRO</div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="unit-toggle" aria-label="Dimension unit">
+      <button type="button" data-unit="m" class="active">m</button>
+      <button type="button" data-unit="ft">ft</button>
+      <button type="button" data-unit="mm">mm</button>
+    </div>
+    <button type="button" class="topbar-action-btn" onclick="window.print()" title="Print / Export Report">
+      <span>🖨</span>
+      <span class="btn-text">Report</span>
+    </button>
+  </div>
+</header>
+
+<div class="sticky-hud" id="stickyHud" onclick="document.getElementById('results-card').scrollIntoView({behavior:'smooth'})" title="Tap to jump to full results">
+  <div class="sticky-hud-left">
+    <div class="hud-big-num"><span id="hudQtyVal">—</span><span>FIXTURES</span></div>
+    <div class="hud-lux-badge"><span id="hudLuxVal">—</span> lx</div>
+  </div>
+  <div class="hud-status-chip" id="hudStatusBadge">AWAITING INPUTS</div>
+</div>
+<div class="layout">
+<main class="stack">
+<section class="card" id="room-card"><div class="card-head"><span class="step">01</span><div><h2>Room geometry</h2><p class="desc">Define the space, mounting conditions and maintained illuminance target.</p></div><span class="card-index">SPACE INPUT</span></div>
+<div class="fields three">
+<div class="field"><label for="length">Length (<span class="unit-label">m</span>)</label><input id="length" type="number" inputmode="decimal" min=".01" step="any" value="5"><small>Inside finished dimensions</small></div>
+<div class="field"><label for="width">Width (<span class="unit-label">m</span>)</label><input id="width" type="number" inputmode="decimal" min=".01" step="any" value="4"><small>Inside finished dimensions</small></div>
+<div class="field"><label for="height">Ceiling height (<span class="unit-label">m</span>)</label><input id="height" type="number" inputmode="decimal" min=".01" step="any" value="3"><small>Optional context</small></div>
+<div class="field"><label for="mount">Luminaire mounting height (<span class="unit-label">m</span>)</label><input id="mount" type="number" inputmode="decimal" min=".01" step="any" value="2.8"><small>Above finished floor</small></div>
+<div class="field"><label for="workplane">Workplane height (<span class="unit-label">m</span>)</label><input id="workplane" type="number" inputmode="decimal" min="0" step="any" value=".8"><small>Typical desk / task plane</small></div>
+<div class="field"><label for="task">Room / task</label><select id="task"><option value="custom">Custom target</option><optgroup label="Residential lighting"><option value="living">Living Room · 200 lx</option><option value="master_bedroom">Master Bedroom · 150 lx</option><option value="guest_bedroom">Guest Bedroom · 150 lx</option><option value="children_bedroom">Children's Bedroom · 200 lx</option><option value="study_room">Study Room · 300 lx</option><option value="home_office">Home Office · 500 lx</option><option value="kitchen_general">Kitchen – General · 300 lx</option><option value="kitchen_counter">Kitchen – Countertop · 500 lx</option><option value="dining_room">Dining Room · 200 lx</option><option value="pooja_room">Pooja Room · 150 lx</option><option value="bathroom">Bathroom · 200 lx</option><option value="bathroom_mirror">Bathroom Mirror · 500 lx</option><option value="dressing_room">Dressing Room · 300 lx</option><option value="walkin_wardrobe">Walk-in Wardrobe · 200 lx</option><option value="corridor">Corridor · 100 lx</option><option value="staircase">Staircase · 150 lx</option><option value="balcony">Balcony · 100 lx</option><option value="veranda">Veranda · 100 lx</option><option value="foyer">Entrance / Foyer · 150 lx</option><option value="garage">Garage · 150 lx</option><option value="utility_room">Utility Room · 200 lx</option><option value="laundry_room">Laundry Room · 200 lx</option><option value="store_room">Store Room · 100 lx</option><option value="home_theatre">Home Theatre · 50 lx</option><option value="reading_area">Reading Area · 300 lx</option><option value="play_room">Children's Play Room · 300 lx</option><option value="indoor_garden">Indoor Garden · 150 lx</option><option value="res_parking">Parking Area (Residential) · 75 lx</option></optgroup><optgroup label="Commercial – Office and corporate"><option value="general_office">General Office · 500 lx</option><option value="open_office">Open Office Workspace · 500 lx</option><option value="private_cabin">Private Cabin · 500 lx</option><option value="conference_room">Conference Room · 500 lx</option><option value="meeting_room">Meeting Room · 500 lx</option><option value="reception">Reception · 300 lx</option><option value="waiting_area">Waiting Area · 200 lx</option><option value="board_room">Board Room · 500 lx</option><option value="computer_workstation">Computer Workstation · 500 lx</option><option value="drawing_office">Drawing Office · 750 lx</option><option value="technical_design">Technical Design Office · 750 lx</option><option value="server_room">Server Room · 300 lx</option><option value="records_room">Records Room · 200 lx</option><option value="file_room">File Room · 200 lx</option><option value="office_corridor">Office Corridor · 100 lx</option><option value="office_staircase">Office Staircase · 150 lx</option><option value="pantry">Pantry · 200 lx</option><option value="commercial_washroom">Commercial Washroom · 200 lx</option></optgroup><optgroup label="Commercial – Educational"><option value="classroom">Classroom · 300 lx</option><option value="smart_classroom">Smart Classroom · 500 lx</option><option value="lecture_hall">Lecture Hall · 300 lx</option><option value="laboratory">Laboratory · 500 lx</option><option value="computer_lab">Computer Lab · 500 lx</option><option value="physics_lab">Physics Lab · 500 lx</option><option value="chemistry_lab">Chemistry Lab · 500 lx</option><option value="biology_lab">Biology Lab · 500 lx</option><option value="library_reading">Library – Reading Area · 500 lx</option><option value="library_shelves">Library – Book Shelves · 200 lx</option><option value="exam_hall">Examination Hall · 500 lx</option><option value="staff_room">Staff Room · 300 lx</option><option value="principal_office">Principal Office · 500 lx</option><option value="college_corridor">College Corridor · 100 lx</option><option value="drawing_hall">Drawing Hall · 750 lx</option><option value="workshop">Workshop · 500 lx</option><option value="auditorium">Indoor Auditorium · 200 lx</option></optgroup><optgroup label="Commercial – Retail and shopping"><option value="retail_shop">General Retail Shop · 300 lx</option><option value="supermarket">Supermarket · 500 lx</option><option value="mall_common">Shopping Mall – Common Area · 200 lx</option><option value="clothing_showroom">Clothing Showroom · 500 lx</option><option value="jewellery_showroom">Jewellery Showroom · 750 lx</option><option value="electronics_showroom">Electronics Showroom · 500 lx</option><option value="furniture_showroom">Furniture Showroom · 300 lx</option><option value="grocery_store">Grocery Store · 300 lx</option><option value="pharmacy">Pharmacy · 500 lx</option><option value="cosmetics_store">Cosmetics Store · 500 lx</option><option value="display_counter">Display Counter · 750 lx</option><option value="billing_counter">Billing Counter · 500 lx</option><option value="storage_area">Storage Area · 150 lx</option><option value="mall_corridor">Shopping Mall Corridor · 150 lx</option><option value="mall_staircase">Mall Staircase · 150 lx</option></optgroup><optgroup label="Commercial – Hospitality and restaurants"><option value="hotel_lobby">Hotel Lobby · 200 lx</option><option value="hotel_reception">Hotel Reception · 300 lx</option><option value="hotel_bedroom">Hotel Bedroom · 150 lx</option><option value="hotel_bathroom">Hotel Bathroom · 200 lx</option><option value="restaurant_dining">Restaurant Dining Area · 150 lx</option><option value="restaurant_kitchen">Restaurant Kitchen · 500 lx</option><option value="hotel_kitchen">Hotel Kitchen · 500 lx</option><option value="buffet_counter">Buffet Counter · 300 lx</option><option value="bar_area">Bar Area · 100 lx</option><option value="banquet_hall">Banquet Hall · 300 lx</option><option value="conference_banquet">Conference Banquet Hall · 500 lx</option><option value="hotel_corridor">Hotel Corridor · 100 lx</option><option value="hotel_staircase">Hotel Staircase · 150 lx</option><option value="hotel_laundry">Hotel Laundry · 200 lx</option><option value="hotel_parking">Hotel Parking · 75 lx</option></optgroup><optgroup label="Commercial – Healthcare"><option value="hospital_reception">Hospital Reception · 300 lx</option><option value="general_ward">General Ward · 200 lx</option><option value="patient_exam">Patient Examination Room · 500 lx</option><option value="consultation_room">Consultation Room · 500 lx</option><option value="doctors_office">Doctor's Office · 500 lx</option><option value="nursing_station">Nursing Station · 500 lx</option><option value="treatment_room">Treatment Room · 500 lx</option><option value="operation_theatre">Operation Theatre – General Lighting · 1,000 lx</option><option value="hospital_lab">Laboratory · 500 lx</option><option value="hospital_pharmacy">Pharmacy · 500 lx</option><option value="hospital_corridor">Hospital Corridor · 100 lx</option><option value="hospital_waiting">Waiting Room · 200 lx</option><option value="patient_bathroom">Patient Bathroom · 200 lx</option><option value="medical_records">Medical Records Room · 200 lx</option><option value="icu">ICU – General Lighting · 300 lx</option></optgroup><optgroup label="Commercial – Industrial and manufacturing"><option value="factory_general">Factory General Area · 200 lx</option><option value="production_area">Production Area · 300 lx</option><option value="assembly_line">Assembly Line · 500 lx</option><option value="quality_inspection">Quality Inspection · 750 lx</option><option value="precision_inspection">Precision Inspection · 1,000 lx</option><option value="machine_workshop">Machine Workshop · 500 lx</option><option value="electrical_workshop">Electrical Workshop · 500 lx</option><option value="maintenance_room">Maintenance Room · 300 lx</option><option value="warehouse">Warehouse · 150 lx</option><option value="warehouse_picking">Warehouse Picking Area · 300 lx</option><option value="loading_area">Loading / Unloading Area · 150 lx</option><option value="packaging_area">Packaging Area · 300 lx</option><option value="control_room">Control Room · 500 lx</option><option value="electrical_panel_room">Electrical Panel Room · 200 lx</option><option value="generator_room">Generator Room · 200 lx</option><option value="plant_room">Plant Room · 200 lx</option><option value="industrial_lab">Laboratory · 500 lx</option><option value="industrial_staircase">Industrial Staircase · 150 lx</option></optgroup><optgroup label="Commercial – Other facilities"><option value="gymnasium">Gymnasium · 300 lx</option><option value="fitness_studio">Fitness Studio · 300 lx</option><option value="sports_hall">Indoor Sports Hall · 300 lx</option><option value="cinema_lobby">Cinema Lobby · 200 lx</option><option value="cinema_auditorium">Cinema Auditorium · 50 lx</option><option value="projection_room">Cinema Projection Room · 100 lx</option><option value="bank_general">Bank General Area · 300 lx</option><option value="bank_counter">Bank Counter · 500 lx</option><option value="atm_room">ATM Room · 300 lx</option><option value="salon">Salon · 500 lx</option><option value="hair_station">Hair Cutting Station · 750 lx</option><option value="beauty_room">Beauty Treatment Room · 500 lx</option><option value="spa_room">Spa Treatment Room · 200 lx</option><option value="museum_exhibition">Museum Exhibition Area · 150 lx</option><option value="art_gallery">Art Gallery · 300 lx</option><option value="museum_case">Museum Display Case · 200 lx</option><option value="public_toilet">Public Toilet · 200 lx</option><option value="public_corridor">Public Corridor · 100 lx</option><option value="indoor_parking">Indoor Parking · 75 lx</option><option value="outdoor_parking">Outdoor Parking · 30 lx</option></optgroup></select></div>
+<div class="field"><label for="lux">Target maintained illuminance (lux)</label><input id="lux" type="number" inputmode="numeric" min="1" max="50000" step="any" value="150"><small>Editable design target</small></div>
+<div class="field"><label for="uf">Utilization factor (UF / CU)</label><input id="uf" type="number" inputmode="decimal" min=".1" max="1" step=".01" value=".70"><small>Use fixture / room data where known</small></div>
+<div class="field"><label for="mf">Maintenance factor (MF)</label><input id="mf" type="number" inputmode="decimal" min=".1" max="1" step=".01" value=".80"><small>Accounts for depreciation / dirt</small></div>
+</div>
+<div class="reflectance-reference"><span class="reflectance-title">SURFACE REFLECTANCE<br>REFERENCE VALUES</span><span class="reflectance-chip"><small>CEILING</small>70%</span><span class="reflectance-chip"><small>WALLS</small>50%</span><span class="reflectance-chip"><small>FLOOR</small>20%</span></div>
+<div class="btn-row"><button class="btn" id="calculate">Calculate lighting</button><button class="btn secondary" id="reset">Reset values</button><button type="button" class="btn step-nav-btn" onclick="window.luxActivateTab('fixtures')">Next: Luminaire Specs →</button></div>
+</section>
+<section class="card" id="fixture-card"><div class="card-head"><span class="step">02</span><div><h2>Luminaire specification</h2><p class="desc">Choose a library fixture or enter manufacturer-rated output and input power.</p></div><span class="card-index">FIXTURE DATA</span></div>
+<div class="fields">
+<div class="field"><label for="fixture">Luminaire preset</label><select id="fixture">
+<option value="custom">Custom luminaire</option>
+<option value="down12">LED downlight 12 W · 900 lm</option>
+<option value="down15">LED downlight 15 W · 1,400 lm</option>
+<option value="panel24">LED panel 24 W · 2,250 lm</option>
+<option value="panel36">LED panel 36 W · 3,500 lm</option>
+<option value="panel600">LED panel 600×600 36 W · 3,750 lm</option>
+<option value="tube18">LED tube 18 W · 2,000 lm</option>
+<option value="linear30">Linear LED 30 W · 3,300 lm</option>
+<option value="flood50">Floodlight 50 W · 5,000 lm</option>
+<optgroup label="Residential LED library">
+<option value="lib_home_0" data-w="1" data-lm="75">Home · 1 W · 50–100 lm · Marker / step light</option>
+<option value="lib_home_1" data-w="2" data-lm="150">Home · 2 W · 100–200 lm · Mini spotlight</option>
+<option value="lib_home_2" data-w="3" data-lm="240">Home · 3 W · 180–300 lm · Mini downlight</option>
+<option value="lib_home_3" data-w="4" data-lm="325">Home · 4 W · 250–400 lm · LED spotlight</option>
+<option value="lib_home_4" data-w="5" data-lm="425">Home · 5 W · 350–500 lm · LED bulb / downlight</option>
+<option value="lib_home_5" data-w="6" data-lm="500">Home · 6 W · 400–600 lm · LED bulb / downlight</option>
+<option value="lib_home_6" data-w="7" data-lm="600">Home · 7 W · 500–700 lm · LED bulb / downlight</option>
+<option value="lib_home_7" data-w="8" data-lm="700">Home · 8 W · 600–800 lm · LED downlight</option>
+<option value="lib_home_8" data-w="9" data-lm="775">Home · 9 W · 650–900 lm · LED bulb / downlight</option>
+<option value="lib_home_9" data-w="10" data-lm="875">Home · 10 W · 750–1,000 lm · COB / bulb</option>
+<option value="lib_home_10" data-w="12" data-lm="1050">Home · 12 W · 900–1,200 lm · Downlight / ceiling light</option>
+<option value="lib_home_11" data-w="15" data-lm="1300">Home · 15 W · 1,100–1,500 lm · LED bulb / panel</option>
+<option value="lib_home_12" data-w="18" data-lm="1650">Home · 18 W · 1,400–1,900 lm · Panel / batten</option>
+<option value="lib_home_13" data-w="20" data-lm="1900">Home · 20 W · 1,600–2,200 lm · Ceiling light</option>
+<option value="lib_home_14" data-w="24" data-lm="2300">Home · 24 W · 1,900–2,700 lm · LED panel</option>
+<option value="lib_home_15" data-w="30" data-lm="2850">Home · 30 W · 2,400–3,300 lm · Ceiling panel</option>
+<option value="lib_home_16" data-w="36" data-lm="3450">Home · 36 W · 2,900–4,000 lm · LED panel / batten</option>
+<option value="lib_home_17" data-w="40" data-lm="3800">Home · 40 W · 3,200–4,400 lm · Linear light</option>
+<option value="lib_home_18" data-w="48" data-lm="4500">Home · 48 W · 3,800–5,200 lm · Ceiling panel</option>
+<option value="lib_home_19" data-w="50" data-lm="4750">Home · 50 W · 4,000–5,500 lm · Surface light</option>
+<option value="lib_home_20" data-w="60" data-lm="5700">Home · 60 W · 4,800–6,600 lm · Linear / decorative fixture</option>
+<option value="lib_home_21" data-w="80" data-lm="7600">Home · 80 W · 6,400–8,800 lm · LED floodlight</option>
+<option value="lib_home_22" data-w="100" data-lm="9500">Home · 100 W · 8,000–11,000 lm · LED floodlight</option>
+<option value="lib_home_23" data-w="150" data-lm="14250">Home · 150 W · 12,000–16,500 lm · Floodlight</option>
+<option value="lib_home_24" data-w="200" data-lm="19000">Home · 200 W · 16,000–22,000 lm · Floodlight</option>
+</optgroup><optgroup label="Commercial LED library">
+<option value="lib_commercial_0" data-w="5" data-lm="425">Commercial · 5 W · 350–500 lm · Mini spotlight</option>
+<option value="lib_commercial_1" data-w="7" data-lm="600">Commercial · 7 W · 500–700 lm · COB spotlight</option>
+<option value="lib_commercial_2" data-w="10" data-lm="1000">Commercial · 10 W · 800–1,200 lm · Track spotlight</option>
+<option value="lib_commercial_3" data-w="12" data-lm="1150">Commercial · 12 W · 900–1,400 lm · Downlight</option>
+<option value="lib_commercial_4" data-w="15" data-lm="1500">Commercial · 15 W · 1,200–1,800 lm · Track / downlight</option>
+<option value="lib_commercial_5" data-w="18" data-lm="1850">Commercial · 18 W · 1,500–2,200 lm · LED batten</option>
+<option value="lib_commercial_6" data-w="20" data-lm="2000">Commercial · 20 W · 1,600–2,400 lm · Linear luminaire</option>
+<option value="lib_commercial_7" data-w="24" data-lm="2500">Commercial · 24 W · 2,000–3,000 lm · Panel / linear</option>
+<option value="lib_commercial_8" data-w="30" data-lm="3300">Commercial · 30 W · 2,700–3,900 lm · LED panel</option>
+<option value="lib_commercial_9" data-w="36" data-lm="3850">Commercial · 36 W · 3,200–4,500 lm · LED panel</option>
+<option value="lib_commercial_10" data-w="40" data-lm="4300">Commercial · 40 W · 3,600–5,000 lm · LED panel</option>
+<option value="lib_commercial_11" data-w="48" data-lm="5150">Commercial · 48 W · 4,300–6,000 lm · Panel / linear</option>
+<option value="lib_commercial_12" data-w="50" data-lm="5500">Commercial · 50 W · 4,500–6,500 lm · Linear / floodlight</option>
+<option value="lib_commercial_13" data-w="60" data-lm="6600">Commercial · 60 W · 5,400–7,800 lm · Industrial linear</option>
+<option value="lib_commercial_14" data-w="80" data-lm="8800">Commercial · 80 W · 7,200–10,400 lm · High-bay</option>
+<option value="lib_commercial_15" data-w="100" data-lm="11000">Commercial · 100 W · 9,000–13,000 lm · High-bay</option>
+<option value="lib_commercial_16" data-w="120" data-lm="13200">Commercial · 120 W · 10,800–15,600 lm · High-bay</option>
+<option value="lib_commercial_17" data-w="150" data-lm="16500">Commercial · 150 W · 13,500–19,500 lm · High-bay / floodlight</option>
+<option value="lib_commercial_18" data-w="180" data-lm="19800">Commercial · 180 W · 16,200–23,400 lm · High-bay</option>
+<option value="lib_commercial_19" data-w="200" data-lm="22000">Commercial · 200 W · 18,000–26,000 lm · High-bay / floodlight</option>
+<option value="lib_commercial_20" data-w="240" data-lm="26400">Commercial · 240 W · 21,600–31,200 lm · Industrial high-bay</option>
+<option value="lib_commercial_21" data-w="300" data-lm="33000">Commercial · 300 W · 27,000–39,000 lm · Industrial high-bay</option>
+<option value="lib_commercial_22" data-w="400" data-lm="44000">Commercial · 400 W · 36,000–52,000 lm · High-power floodlight</option>
+<option value="lib_commercial_23" data-w="500" data-lm="55000">Commercial · 500 W · 45,000–65,000 lm · High-power floodlight</option>
+</optgroup>
+</select><small>Includes residential and commercial wattage presets with estimated lumens. Use manufacturer-rated data for final design.</small></div>
+<div class="field"><label for="qtyMode">Quantity mode</label><select id="qtyMode"><option value="lumen">Lumen-method minimum</option><option value="spacing">Include spacing screen</option><option value="manual">Manual fixture quantity</option></select><small>Spacing screen is preliminary, not photometric verification.</small></div>
+<div class="field"><label for="lumens">Luminaire output (lm each)</label><input id="lumens" type="number" inputmode="numeric" min="1" step="any" value="1000"><small>Use luminaire output, not LED chip / lamp flux.</small></div>
+<div class="field"><label for="watts">Input power (W each)</label><input id="watts" type="number" inputmode="decimal" min=".1" step="any" value="12"><small>Fixture input power</small></div>
+<div class="field"><label for="manualQty">Manual quantity</label><input id="manualQty" type="number" inputmode="numeric" min="1" max="10000" step="1" value="1"><small>Used in manual quantity mode</small></div>
+<div class="field"><label for="spacingFactor">Max spacing / mounting height ratio</label><input id="spacingFactor" type="number" inputmode="decimal" min=".5" max="2.5" step=".05" value="1.2"><small>Preliminary screen only; manufacturer SHR takes precedence.</small></div>
+</div><button type="button" class="btn step-nav-btn" onclick="window.luxActivateTab('results')">View Results HUD →</button></section>
+<section class="card" id="layout-card"><div class="card-head"><span class="step">05</span><div><h2>Fixture arrangement</h2><p class="desc">Review the indicative fixture grid generated from the room dimensions and quantity.</p></div><span class="card-index">SPATIAL PREVIEW</span></div><div class="canvas-wrap"><canvas id="plan" width="900" height="520" aria-label="Preliminary lighting layout"></canvas></div><div class="legend"><span><i class="dot"></i>Indicative fixture position</span><span>Not a point-by-point photometric simulation</span></div><div id="layoutInfo" class="formula">Calculate lighting to generate the layout.</div><button type="button" class="btn step-nav-btn" onclick="window.luxActivateTab('energy')">View Energy & Tariff Profile →</button></section>
+
+</main>
+<aside class="stack">
+<section class="card" id="results-card"><div class="card-head"><span class="step">03</span><div><h2>Lighting results</h2><p class="desc">Live engineering summary from the current design inputs.</p></div><span class="card-index">LIVE OUTPUT</span></div>
+<div class="result-hero"><div><div class="kicker">RECOMMENDED FIXTURE QUANTITY</div><div class="big-number" id="resultQty">— <span>fixtures</span></div></div><span id="resultStatus" class="status">Awaiting inputs</span></div>
+<div class="metrics">
+<div class="metric"><small>Room area</small><strong id="area">—</strong><em id="areaFt">—</em></div>
+<div class="metric"><small>Connected load</small><strong id="load">—</strong><em id="density">—</em></div>
+<div class="metric"><small>Estimated maintained lux</small><strong id="actualLux">—</strong><em id="targetDiff">—</em></div>
+<div class="metric"><small>Total luminaire flux</small><strong id="flux">—</strong><em>Nominal luminaire lumens</em></div>
+<div class="metric"><small>Room index (K)</small><strong id="roomIndex">—</strong><em id="mounting">Mounting height above workplane</em></div>
+<div class="metric"><small>Energy / day</small><strong id="energy">—</strong><em>Optional operating-hours estimate</em></div>
+</div>
+<div class="mobile-result-visual"><div class="lux-gauge" id="luxGauge"><div><strong id="mobileLuxValue">—</strong><span>AVERAGE LUX</span><b id="luxGaugeStatus">WAITING</b></div></div></div>
+<div class="formula"><b>Applied formulas</b><br><code>N = ceil(E × A ÷ (Φ × UF × MF))</code><br><code>Emaint = N × Φ × UF × MF ÷ A</code><br><code>K = (L × W) ÷ [Hm × (L + W)]</code><br><span>For strip lights, use linear lumens and watts per metre in a separate line-load calculation.</span></div>
+<div class="note"><b>Engineering limitation:</b> lumen-method results estimate average maintained illuminance. Final design requires actual IES/LDT photometry, room reflectances, glare checks, uniformity, obstructions and point-by-point verification.</div>
+<button type="button" class="btn step-nav-btn" onclick="window.luxActivateTab('layout')">View CAD Layout Plan →</button></section>
+<section class="card" id="energy-card"><div class="card-head"><span class="step">04</span><div><h2>Energy & operating cost</h2><p class="desc">Estimate daily usage and monthly running cost for this fixture schedule.</p></div><span class="card-index">ENERGY PROFILE</span></div><div class="fields">
+<div class="field"><label for="hours">Operating hours per day</label><input id="hours" type="number" inputmode="decimal" min="0" max="24" step=".5" value="5"></div>
+<div class="field"><label for="tariff">Electricity tariff (₹/kWh)</label><input id="tariff" type="number" inputmode="decimal" min="0" step=".01" value="8"></div>
+</div><div class="metrics" style="margin-top:10px"><div class="metric"><small>Monthly energy</small><strong id="monthlyKwh">—</strong><em>30-day estimate</em></div><div class="metric"><small>Monthly cost</small><strong id="monthlyCost">—</strong><em>Based on entered tariff</em></div></div></section>
+</aside>
+</div>
+</div>
+<script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id), FT=.3048, M2FT2=10.7639104167, units={m:{toM:v=>v,fromM:v=>v,label:'m',dec:2},ft:{toM:v=>v*FT,fromM:v=>v/FT,label:'ft',dec:3},mm:{toM:v=>v/1000,fromM:v=>v*1000,label:'mm',dec:0}};
+let currentUnit='m',lastQty=1,manualCalculateAllowed=false;
+const targets={custom:150,living:200,master_bedroom:150,guest_bedroom:150,children_bedroom:200,study_room:300,home_office:500,kitchen_general:300,kitchen_counter:500,dining_room:200,pooja_room:150,bathroom:200,bathroom_mirror:500,dressing_room:300,walkin_wardrobe:200,corridor:100,staircase:150,balcony:100,veranda:100,foyer:150,garage:150,utility_room:200,laundry_room:200,store_room:100,home_theatre:50,reading_area:300,play_room:300,indoor_garden:150,res_parking:75,general_office:500,open_office:500,private_cabin:500,conference_room:500,meeting_room:500,reception:300,waiting_area:200,board_room:500,computer_workstation:500,drawing_office:750,technical_design:750,server_room:300,records_room:200,file_room:200,office_corridor:100,office_staircase:150,pantry:200,commercial_washroom:200,classroom:300,smart_classroom:500,lecture_hall:300,laboratory:500,computer_lab:500,physics_lab:500,chemistry_lab:500,biology_lab:500,library_reading:500,library_shelves:200,exam_hall:500,staff_room:300,principal_office:500,college_corridor:100,drawing_hall:750,workshop:500,auditorium:200,retail_shop:300,supermarket:500,mall_common:200,clothing_showroom:500,jewellery_showroom:750,electronics_showroom:500,furniture_showroom:300,grocery_store:300,pharmacy:500,cosmetics_store:500,display_counter:750,billing_counter:500,storage_area:150,mall_corridor:150,mall_staircase:150,hotel_lobby:200,hotel_reception:300,hotel_bedroom:150,hotel_bathroom:200,restaurant_dining:150,restaurant_kitchen:500,hotel_kitchen:500,buffet_counter:300,bar_area:100,banquet_hall:300,conference_banquet:500,hotel_corridor:100,hotel_staircase:150,hotel_laundry:200,hotel_parking:75,hospital_reception:300,general_ward:200,patient_exam:500,consultation_room:500,doctors_office:500,nursing_station:500,treatment_room:500,operation_theatre:1000,hospital_lab:500,hospital_pharmacy:500,hospital_corridor:100,hospital_waiting:200,patient_bathroom:200,medical_records:200,icu:300,factory_general:200,production_area:300,assembly_line:500,quality_inspection:750,precision_inspection:1000,machine_workshop:500,electrical_workshop:500,maintenance_room:300,warehouse:150,warehouse_picking:300,loading_area:150,packaging_area:300,control_room:500,electrical_panel_room:200,generator_room:200,plant_room:200,industrial_lab:500,industrial_staircase:150,gymnasium:300,fitness_studio:300,sports_hall:300,cinema_lobby:200,cinema_auditorium:50,projection_room:100,bank_general:300,bank_counter:500,atm_room:300,salon:500,hair_station:750,beauty_room:500,spa_room:200,museum_exhibition:150,art_gallery:300,museum_case:200,public_toilet:200,public_corridor:100,indoor_parking:75,outdoor_parking:30};
+const presets={custom:null,down12:{w:12,lm:900},down15:{w:15,lm:1400},panel24:{w:24,lm:2250},panel36:{w:36,lm:3500},panel600:{w:36,lm:3750},tube18:{w:18,lm:2000},linear30:{w:30,lm:3300},flood50:{w:50,lm:5000}};
+function val(id){return Number($(id).value)}
+function metres(id){return units[currentUnit].toM(val(id))}
+function fmt(n,d=1){return Number.isFinite(n)?n.toLocaleString(undefined,{maximumFractionDigits:d}):'—'}
+function validPositive(id,label,allowZero=false){const n=val(id);if(!Number.isFinite(n)||(allowZero?n<0:n<=0))throw new Error(label+' must be '+(allowZero?'zero or greater':'greater than zero')+'.');return n}
+function setDim(id,m){$(id).value=units[currentUnit].fromM(m).toFixed(units[currentUnit].dec)}
+function updateUnitLabels(){document.querySelectorAll('.unit-label').forEach(e=>e.textContent=currentUnit)}
+function convertUnit(next){if(next===currentUnit)return;const dims=['length','width','height','mount','workplane'];const metresBefore={};dims.forEach(id=>metresBefore[id]=$(id).value.trim()===''?null:metres(id));currentUnit=next;document.querySelectorAll('[data-unit]').forEach(b=>b.classList.toggle('active',b.dataset.unit===next));updateUnitLabels();dims.forEach(id=>{if(metresBefore[id]!==null)setDim(id,metresBefore[id])});calculate()}
+function drawPlan(L,W,qty){
+  const c=$('plan');
+  if(!c) return;
+  const ctx=c.getContext('2d');
+  
+  // Hi-DPI & responsive canvas resolution
+  const rect = c.getBoundingClientRect();
+  const displayW = Math.max(280, rect.width > 0 ? rect.width : (c.parentElement ? c.parentElement.clientWidth : 900));
+  const displayH = Math.max(180, Math.round(displayW * (520 / 900)));
+  const dpr = Math.min(window.devicePixelRatio || 1, 2.5);
+  
+  const targetW = Math.round(displayW * dpr);
+  const targetH = Math.round(displayH * dpr);
+  
+  if(c.width !== targetW || c.height !== targetH){
+    c.width = targetW;
+    c.height = targetH;
+  }
+  
+  ctx.save();
+  ctx.scale(dpr, dpr);
+  
+  const cw = displayW, ch = displayH;
+  ctx.clearRect(0,0,cw,ch);
+  
+  // High-precision dark CAD canvas
+  ctx.fillStyle='#080c14';
+  ctx.fillRect(0,0,cw,ch);
+  
+  const pad = Math.max(28, Math.min(64, displayW * 0.08));
+  const scale = Math.min((cw - pad * 2) / L, (ch - pad * 2) / W);
+  const rw = L * scale, rh = W * scale;
+  const x = (cw - rw) / 2, y = (ch - rh) / 2;
+  
+  // Floor area fill
+  ctx.fillStyle='#0d121f';
+  ctx.fillRect(x,y,rw,rh);
+  
+  // Fine grid lines
+  ctx.strokeStyle='rgba(255,255,255,0.04)';
+  ctx.lineWidth=1;
+  for(let i=1;i<10;i++){
+    const gx=x+rw*i/10;
+    ctx.beginPath();ctx.moveTo(gx,y);ctx.lineTo(gx,y+rh);ctx.stroke();
+    const gy=y+rh*i/10;
+    ctx.beginPath();ctx.moveTo(x,gy);ctx.lineTo(x+rw,gy);ctx.stroke();
+  }
+  
+  // Outer perimeter wall (architectural double stroke)
+  ctx.strokeStyle='rgba(245, 158, 11, 0.45)';
+  ctx.lineWidth=2;
+  ctx.strokeRect(x,y,rw,rh);
+  
+  ctx.strokeStyle='rgba(255, 255, 255, 0.15)';
+  ctx.lineWidth=1;
+  ctx.strokeRect(x-4,y-4,rw+8,rh+8);
+  
+  // Fixture grid calculation
+  let cols=Math.max(1,Math.ceil(Math.sqrt(qty*L/W))),rows=Math.ceil(qty/cols);
+  cols=Math.min(cols,qty);rows=Math.ceil(qty/cols);
+  let pts=[];
+  for(let r=0;r<rows;r++)for(let col=0;col<cols;col++)if(pts.length<qty)pts.push([x+rw*(col+.5)/cols,y+rh*(r+.5)/rows]);
+  
+  // Render luminaires with soft photometric halos
+  pts.forEach(([px,py])=>{
+    const haloRadius = Math.max(10, Math.min(32, scale * 0.28));
+    const grad = ctx.createRadialGradient(px, py, 2, px, py, haloRadius);
+    grad.addColorStop(0, 'rgba(251, 191, 36, 0.35)');
+    grad.addColorStop(0.5, 'rgba(245, 158, 11, 0.12)');
+    grad.addColorStop(1, 'rgba(245, 158, 11, 0)');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(px, py, haloRadius, 0, Math.PI*2);
+    ctx.fill();
+    
+    ctx.beginPath();
+    const dotSize = Math.max(4, Math.min(9, scale * 0.08));
+    ctx.arc(px,py,dotSize,0,Math.PI*2);
+    ctx.fillStyle='#f59e0b';
+    ctx.shadowColor='rgba(245, 158, 11, 0.8)';
+    ctx.shadowBlur=12;
+    ctx.fill();
+    ctx.shadowBlur=0;
+    
+    ctx.strokeStyle='#ffffff';
+    ctx.lineWidth=1.5;
+    ctx.stroke();
+  });
+  
+  // Dimension callouts
+  ctx.fillStyle='#94a3b8';
+  const fontSize = Math.max(10, Math.min(13, displayW * 0.022));
+  ctx.font=`600 ${fontSize}px system-ui, -apple-system, sans-serif`;
+  ctx.textAlign='center';
+  ctx.fillText(`${fmt(L,2)} ${currentUnit}`, x + rw/2, Math.max(14, y - 10));
+  
+  ctx.save();
+  ctx.translate(Math.max(12, x - 14), y + rh/2);
+  ctx.rotate(-Math.PI/2);
+  ctx.textAlign='center';
+  ctx.fillText(`${fmt(W,2)} ${currentUnit}`, 0, 0);
+  ctx.restore();
+  
+  ctx.restore();
+  
+  $('layoutInfo').innerHTML=`<b>${qty} luminaire positions</b> · Grid: ${cols} col(s) × ${rows} row(s)<br><span style="color:var(--ink-muted)">Indicative layout. Verify point-by-point uniformity using manufacturer photometric data.</span>`;
+}
+function drawHeatmap(qty){
+ const canvases=[$('heatmapCanvas'),$('mobileHeatmapCanvas')].filter(Boolean),L=metres('length'),W=metres('width'),area=L*W,target=val('lux'),average=qty*val('lumens')*val('uf')*val('mf')/area,cols=Math.max(1,Math.min(12,Math.ceil(Math.sqrt(qty*L/W)))),rows=Math.ceil(Math.min(qty,144)/cols),points=[];
+ for(let r=0;r<rows;r++)for(let c=0;c<cols;c++)if(points.length<Math.min(qty,144))points.push([(c+.5)/cols,(r+.5)/rows]);
+ canvases.forEach(canvas=>{const ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height,off=document.createElement('canvas');off.width=280;off.height=175;const o=off.getContext('2d'),img=o.createImageData(off.width,off.height),values=new Float32Array(off.width*off.height);let peak=0;
+ for(let y=0;y<off.height;y++)for(let x=0;x<off.width;x++){const nx=x/(off.width-1),ny=y/(off.height-1);let v=.035;for(const p of points){const dx=(nx-p[0])/.19,dy=(ny-p[1])/.19;v+=Math.exp(-.5*(dx*dx+dy*dy));}values[y*off.width+x]=v;if(v>peak)peak=v;}
+ const stops=[[0,19,42,154],[.22,0,145,231],[.45,0,201,209],[.67,66,205,126],[.84,255,218,73],[1,238,83,38]];
+ for(let i=0;i<values.length;i++){const t=values[i]/peak;let j=0;while(j<stops.length-2&&t>stops[j+1][0])j++;const a=stops[j],b=stops[j+1],u=Math.max(0,Math.min(1,(t-a[0])/(b[0]-a[0]))),k=i*4;img.data[k]=Math.round(a[1]+(b[1]-a[1])*u);img.data[k+1]=Math.round(a[2]+(b[2]-a[2])*u);img.data[k+2]=Math.round(a[3]+(b[3]-a[3])*u);img.data[k+3]=255;}
+ o.putImageData(img,0,0);ctx.clearRect(0,0,w,h);ctx.fillStyle='#091321';ctx.fillRect(0,0,w,h);ctx.drawImage(off,18,18,w-36,h-36);ctx.strokeStyle='rgba(235,244,255,.17)';ctx.lineWidth=1;for(let i=1;i<8;i++){const gx=18+(w-36)*i/8,gy=18+(h-36)*i/8;ctx.beginPath();ctx.moveTo(gx,18);ctx.lineTo(gx,h-18);ctx.stroke();ctx.beginPath();ctx.moveTo(18,gy);ctx.lineTo(w-18,gy);ctx.stroke();}ctx.strokeStyle='rgba(240,247,255,.72)';ctx.lineWidth=2;ctx.strokeRect(18,18,w-36,h-36);ctx.fillStyle='rgba(8,17,30,.78)';ctx.fillRect(25,25,115,25);ctx.fillStyle='#e8f1ff';ctx.font='bold 12px system-ui';ctx.fillText('ROOM HEATMAP',34,42);
+ });
+ const summary=$('heatmapSummary');if(summary)summary.textContent='Average '+fmt(average,0)+' lx · Target '+fmt(target,0)+' lx · '+qty+' fixtures';const av=$('heatmapAverage');if(av)av.textContent=fmt(average,0)+' lx average';const mobileValue=$('mobileLuxValue');if(mobileValue)mobileValue.textContent=fmt(average,0)+' lx';const gauge=$('luxGauge');if(gauge)gauge.style.setProperty('--lux-gauge-angle',(Math.max(0,Math.min(1.15,average/target))*360)+'deg');const gaugeStatus=$('luxGaugeStatus');if(gaugeStatus){gaugeStatus.textContent=average>=target?'PASS':'LOW';gaugeStatus.classList.toggle('pass',average>=target);}
+}
+function calculateCore(){try{
+const Lraw=validPositive('length','Length'),Wraw=validPositive('width','Width'),Lm=metres('length'),Wm=metres('width'),A_m2=Lm*Wm,mountM=metres('mount'),workplaneM=metres('workplane'),Hm=mountM-workplaneM,ceilingInput=$('height').value.trim(),ceiling=ceilingInput===''?null:metres('height'),E=validPositive('lux','Target illuminance'),UF=validPositive('uf','Utilization factor'),MF=validPositive('mf','Maintenance factor'),lm=validPositive('lumens','Luminaire lumens'),watts=validPositive('watts','Input power'),ratio=validPositive('spacingFactor','Spacing ratio');
+if(!Number.isFinite(A_m2)||A_m2<=0)throw new Error('Enter valid room dimensions.');if(E>50000)throw new Error('Target illuminance cannot exceed 50,000 lx.');if(UF<.1||MF<.1||UF>1||MF>1)throw new Error('UF and MF must be between 0.10 and 1.00.');if(!Number.isFinite(mountM)||mountM<=0)throw new Error('Luminaire mounting height must be greater than zero.');if(!Number.isFinite(workplaneM)||workplaneM<0)throw new Error('Workplane height cannot be negative.');if(Hm<=0)throw new Error('Luminaire mounting height must be above the workplane.');if(ceiling!==null&&(!Number.isFinite(ceiling)||ceiling<=0))throw new Error('If entered, ceiling height must be greater than zero.');if(ceiling!==null&&mountM>ceiling+.0001)throw new Error('Luminaire mounting height cannot exceed ceiling height.');if(ceiling!==null&&workplaneM>=ceiling)throw new Error('Workplane height must be below ceiling height.');if(ratio<.5||ratio>2.5)throw new Error('Spacing ratio must be between 0.50 and 2.50.');
+const lumenQty=Math.max(1,Math.ceil((E*A_m2)/(lm*UF*MF))),maxSpacing=Hm*ratio,spacingCols=Math.max(1,Math.ceil(Lm/maxSpacing)),spacingRows=Math.max(1,Math.ceil(Wm/maxSpacing)),spacingQty=spacingCols*spacingRows,mode=$('qtyMode').value;let qty;if(mode==='manual'){const manual=validPositive('manualQty','Manual quantity');if(!Number.isInteger(manual))throw new Error('Manual fixture quantity must be a whole number.');qty=manual}else qty=mode==='spacing'?Math.max(lumenQty,spacingQty):lumenQty;
+if(!Number.isSafeInteger(qty)||qty>10000)throw new Error('Calculated fixture quantity exceeds 10,000. Check the room dimensions and fixture output.');
+lastQty=qty;const actual=qty*lm*UF*MF/A_m2,connected=qty*watts,roomIndex=(Lm*Wm)/(Hm*(Lm+Wm)),wPerM2=connected/A_m2,hoursRaw=Number($('hours').value),tariffRaw=Number($('tariff').value);if($('hours').value.trim()===''||!Number.isFinite(hoursRaw)||hoursRaw<0||hoursRaw>24)throw new Error('Operating hours must be between 0 and 24.');if($('tariff').value.trim()===''||!Number.isFinite(tariffRaw)||tariffRaw<0)throw new Error('Electricity tariff must be zero or greater.');const hours=hoursRaw,tariff=tariffRaw,monthly=connected/1000*hours*30,cost=monthly*tariff;
+$('resultQty').innerHTML=`${fmt(qty,0)} <span>fixtures</span>`;$('resultStatus').textContent=actual>=E?'TARGET MET':'BELOW TARGET';$('resultStatus').classList.toggle('warn',actual+1e-9<E);
+const hQ=$('hudQtyVal'), hL=$('hudLuxVal'), hS=$('hudStatusBadge');
+if(hQ) hQ.textContent = fmt(qty,0);
+if(hL) hL.textContent = fmt(actual,0);
+if(hS) {
+  hS.textContent = actual>=E ? 'TARGET MET ✓' : 'BELOW TARGET';
+  hS.classList.toggle('warn', actual+1e-9 < E);
+}
+const mlpQ=$('mlpQty'), mlpL=$('mlpLux'), mlpS=$('mlpStatus');
+if(mlpQ) mlpQ.textContent=fmt(qty,0);
+if(mlpL) mlpL.textContent=fmt(actual,0);
+if(mlpS){ mlpS.textContent=actual>=E?'PASS':'LOW'; mlpS.classList.toggle('warn', actual+1e-9<E); }
+$('area').textContent=`${fmt(A_m2,2)} m²`;$('areaFt').textContent=`${fmt(A_m2*M2FT2,1)} ft²`;$('load').textContent=`${fmt(connected,1)} W`;$('density').textContent=`${fmt(wPerM2,2)} W/m²`;$('actualLux').textContent=`${fmt(actual,1)} lx`;$('targetDiff').textContent=`Target ${fmt(E,0)} lx · ${actual>=E?'+':''}${fmt(actual-E,1)} lx`;$('flux').textContent=`${fmt(qty*lm,0)} lm`;$('roomIndex').textContent=fmt(roomIndex,2);$('mounting').textContent=`Hm = ${fmt(Hm,2)} m above workplane`;$('energy').textContent=`${fmt(connected/1000*hours,2)} kWh`;$('monthlyKwh').textContent=`${fmt(monthly,1)} kWh`;$('monthlyCost').textContent=`₹${fmt(cost,0)}`;drawPlan(Lraw,Wraw,qty);
+}catch(e){$('resultQty').innerHTML='— <span>fixtures</span>';$('resultStatus').textContent='CHECK INPUTS';$('resultStatus').classList.add('warn');['area','areaFt','load','density','actualLux','targetDiff','flux','roomIndex','energy','monthlyKwh','monthlyCost'].forEach(id=>$(id).textContent='—');$('layoutInfo').textContent=e.message;const ctx=$('plan').getContext('2d');ctx.clearRect(0,0,900,520);ctx.fillStyle='#080c14';ctx.fillRect(0,0,900,520);ctx.fillStyle='#ff7d86';ctx.font='16px system-ui';ctx.fillText(e.message,25,50)}}
+$('fixture').addEventListener('change',()=>{const sel=$('fixture');const opt=sel.options[sel.selectedIndex];const p=presets[sel.value]||(opt&&opt.dataset.w&&opt.dataset.lm?{w:Number(opt.dataset.w),lm:Number(opt.dataset.lm)}:null);if(p){$('lumens').value=p.lm;$('watts').value=p.w;calculate()}});
+function calculate(){if(!manualCalculateAllowed)return;calculateCore();if($('resultStatus').textContent!=='CHECK INPUTS'&&Number.isFinite(metres('length'))&&Number.isFinite(metres('width')))drawHeatmap(lastQty)}
+$('task').addEventListener('change',()=>{const v=targets[$('task').value];if(v){$('lux').value=v;calculate()}});
+document.querySelectorAll('[data-unit]').forEach(b=>b.addEventListener('click',()=>convertUnit(b.dataset.unit)));
+['length','width','height','mount','workplane','lux','uf','mf','lumens','watts','manualQty','spacingFactor','qtyMode','hours','tariff'].forEach(id=>$(id).addEventListener('input',calculate));
+$('calculate').addEventListener('click',()=>{manualCalculateAllowed=true;try{calculate()}finally{manualCalculateAllowed=false}});
+function resetHud(){
+  const hQ=$('hudQtyVal'), hL=$('hudLuxVal'), hS=$('hudStatusBadge');
+  if(hQ) hQ.textContent = '—';
+  if(hL) hL.textContent = '—';
+  if(hS) { hS.textContent = 'AWAITING INPUTS'; hS.classList.remove('warn'); }
+}
+$('reset').addEventListener('click', function(){ resetHud(); });
+$('reset').addEventListener('click',()=>{currentUnit='m';document.querySelectorAll('[data-unit]').forEach(b=>b.classList.toggle('active',b.dataset.unit==='m'));$('length').value=5;$('width').value=4;$('height').value=3;$('mount').value=2.8;$('workplane').value=.8;$('task').value='custom';$('lux').value=150;$('uf').value=.70;$('mf').value=.80;$('fixture').value='custom';$('lumens').value=1000;$('watts').value=12;$('manualQty').value=1;$('qtyMode').value='lumen';$('spacingFactor').value=1.2;$('hours').value=5;$('tariff').value=8;['task','fixture','qtyMode'].forEach(id=>$(id).dispatchEvent(new Event('change',{bubbles:true})));updateUnitLabels();calculate()});
+window.addEventListener('resize',()=>{if(lastQty>0)calculate()});updateUnitLabels();calculate();
+})();
+</script>
+
+<script>
+/* Reset clears stale outputs without running a calculation. */
+(function(){
+  var reset=document.getElementById('reset');
+  if(!reset)return;
+  reset.addEventListener('click',function(){
+    var qty=document.getElementById('resultQty');
+    var status=document.getElementById('resultStatus');
+    if(qty)qty.innerHTML='— <span>fixtures</span>';
+    if(status){status.textContent='Awaiting inputs';status.classList.remove('warn');}
+    ['area','areaFt','load','density','actualLux','targetDiff','flux','roomIndex','energy','monthlyKwh','monthlyCost'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent='—';});
+    var gaugeValue=document.getElementById('mobileLuxValue');
+    var gaugeStatus=document.getElementById('luxGaugeStatus');
+    var gauge=document.getElementById('luxGauge');
+    if(gaugeValue)gaugeValue.textContent='—';
+    if(gaugeStatus){gaugeStatus.textContent='WAITING';gaugeStatus.classList.remove('pass');}
+    if(gauge)gauge.style.setProperty('--lux-gauge-angle','0deg');
+    var info=document.getElementById('layoutInfo');
+    if(info)info.textContent='Calculate lighting to generate the layout.';
+    var canvas=document.getElementById('plan');
+    if(canvas){var ctx=canvas.getContext('2d');ctx.clearRect(0,0,canvas.width,canvas.height);ctx.fillStyle='#080c14';ctx.fillRect(0,0,canvas.width,canvas.height);}
+  });
+})();
+</script>
+
+<script>
+/* Keep primary actions after the room and luminaire setup steps. */
+(function(){
+  var actions=document.querySelector('#room-card .btn-row');
+  var fixtureCard=document.getElementById('fixture-card');
+  if(actions&&fixtureCard)fixtureCard.appendChild(actions);
+})();
+</script>
+
+<script>
+(function(){
+  var layout=document.querySelector('.layout');
+  var room=document.getElementById('room-card');
+  var fixtures=document.getElementById('fixture-card');
+  var results=document.getElementById('results-card');
+  var plan=document.getElementById('layout-card');
+  var sideCards=document.querySelectorAll('.layout > aside.stack > .card');
+  var energy=null;
+  for(var i=0;i<sideCards.length;i++){if(sideCards[i]!==results){energy=sideCards[i];break;}}
+  if(layout&&room&&fixtures&&results&&plan&&energy){
+    var screens=[{id:'room',card:room},{id:'fixtures',card:fixtures},{id:'results',card:results},{id:'energy',card:energy},{id:'layout',card:plan}];
+    screens.forEach(function(item,index){
+      var screen=document.createElement('section');screen.className='mobile-screen'+(index===0?' active':'');screen.dataset.screen=item.id;screen.id='screen-'+item.id;screen.setAttribute('role','tabpanel');screen.setAttribute('aria-labelledby','tab-'+item.id);screen.appendChild(item.card);layout.appendChild(screen);
+    });
+    layout.classList.add('lux-dashboard-grid');
+  }
+})();
+</script>
+
+<script>
+(function(){
+  function initLUXSelects(){
+    var enhanced = [];
+    function closeOthers(except){
+      enhanced.forEach(function(r){ if(r !== except) r.close(); });
+    }
+
+    // Scroll listener: do not close if scrolling inside the dropdown itself
+    window.addEventListener('scroll', function(e){
+      enhanced.forEach(function(r){
+        if(!r.menu.hidden && e.target && (e.target === r.menu || (r.menu.contains && r.menu.contains(e.target)))){
+          return;
+        }
+        r.close();
+      });
+    }, { passive: true, capture: true });
+
+    function enhance(select, index){
+      if(select.dataset.luxEnhanced === 'yes') return;
+      select.dataset.luxEnhanced = 'yes';
+      var shell = document.createElement('div');
+      shell.className = 'select-shell';
+      select.parentNode.insertBefore(shell, select);
+      shell.appendChild(select);
+      select.classList.add('lux-native-select');
+
+      var trigger = document.createElement('button');
+      trigger.type = 'button';
+      trigger.className = 'lux-select-trigger';
+      trigger.setAttribute('aria-haspopup', 'listbox');
+      trigger.setAttribute('aria-expanded', 'false');
+      var label = select.getAttribute('aria-label');
+      if(!label && select.labels && select.labels.length) label = select.labels[0].textContent.trim();
+      trigger.setAttribute('aria-label', label || 'Choose option');
+
+      var value = document.createElement('span');
+      value.className = 'lux-select-value';
+      var arrow = document.createElement('span');
+      arrow.className = 'lux-select-chevron';
+      arrow.setAttribute('aria-hidden', 'true');
+      trigger.appendChild(value);
+      trigger.appendChild(arrow);
+      shell.appendChild(trigger);
+
+      var menu = document.createElement('div');
+      menu.className = 'lux-select-menu';
+      menu.hidden = true;
+      menu.setAttribute('role', 'listbox');
+      menu.id = 'lux-options-' + index;
+      trigger.setAttribute('aria-controls', menu.id);
+      document.body.appendChild(menu);
+
+      var record = { close: close, position: position, menu: menu, trigger: trigger, shell: shell };
+      enhanced.push(record);
+
+      function position(){
+        try {
+          var rect = trigger.getBoundingClientRect();
+          var margin = 8;
+          var gap = 4;
+          var vw = window.innerWidth || document.documentElement.clientWidth || 360;
+          var vh = window.innerHeight || document.documentElement.clientHeight || 640;
+
+          // Safe bounds: top (header + sticky HUD)
+          var safeTop = margin;
+          var hud = document.getElementById('stickyHud');
+          var hudRect = hud ? hud.getBoundingClientRect() : null;
+          var topbar = document.querySelector('.topbar');
+          var topbarRect = topbar ? topbar.getBoundingClientRect() : null;
+          if(hudRect && hudRect.bottom > 0){
+            safeTop = Math.max(safeTop, hudRect.bottom + 6);
+          } else if(topbarRect && topbarRect.bottom > 0){
+            safeTop = Math.max(safeTop, topbarRect.bottom + 6);
+          }
+
+          // Safe bounds: bottom (bottom floating dock)
+          var safeBottom = vh - margin;
+          var dock = document.getElementById('mobileAppDock') || document.querySelector('.mobile-app-dock');
+          var dockRect = (dock && window.getComputedStyle(dock).display !== 'none') ? dock.getBoundingClientRect() : null;
+          if(dockRect && dockRect.top > 0 && dockRect.top < vh){
+            safeBottom = Math.min(safeBottom, dockRect.top - 6);
+          }
+
+          // Width & horizontal alignment
+          var width = Math.min(rect.width, vw - margin * 2);
+          var left = Math.max(margin, Math.min(rect.left, vw - width - margin));
+
+          menu.style.position = 'fixed';
+          menu.style.boxSizing = 'border-box';
+          menu.style.width = width + 'px';
+          menu.style.minWidth = width + 'px';
+          menu.style.maxWidth = (vw - margin * 2) + 'px';
+          menu.style.left = left + 'px';
+          menu.style.right = 'auto';
+
+          // Measure natural unconstrained height
+          menu.style.maxHeight = 'none';
+          menu.style.visibility = 'hidden';
+          menu.hidden = false;
+          var naturalH = menu.offsetHeight || menu.scrollHeight || 140;
+
+          var spaceBelow = Math.max(0, safeBottom - rect.bottom - gap);
+          var spaceAbove = Math.max(0, rect.top - safeTop - gap);
+
+          // Placement decision:
+          // 1. Fits below without scrolling? Open below.
+          // 2. Fits above without scrolling? Open above.
+          // 3. Otherwise, pick whichever side provides more room.
+          var openAbove = false;
+          if(spaceBelow >= naturalH){
+            openAbove = false;
+          } else if(spaceAbove >= naturalH){
+            openAbove = true;
+          } else {
+            openAbove = (spaceAbove > spaceBelow);
+          }
+
+          if(!openAbove){
+            var allowed = Math.max(70, spaceBelow);
+            menu.style.maxHeight = allowed + 'px';
+            menu.style.top = (rect.bottom + gap) + 'px';
+            menu.style.bottom = 'auto';
+          } else {
+            var allowed = Math.max(70, spaceAbove);
+            menu.style.maxHeight = allowed + 'px';
+            // Rendered height is naturalH capped by allowed
+            var actualH = Math.min(naturalH, allowed);
+            // Snap the bottom of the menu precisely gap px above the trigger
+            menu.style.top = (rect.top - gap - actualH) + 'px';
+            menu.style.bottom = 'auto';
+          }
+
+          menu.style.visibility = 'visible';
+        } catch(err) {
+          menu.style.position = 'fixed';
+          menu.style.left = '8px';
+          menu.style.right = '8px';
+          menu.style.width = 'auto';
+          menu.style.top = '100px';
+          menu.style.maxHeight = 'min(300px, 60vh)';
+          menu.style.visibility = 'visible';
+        }
+      }
+
+      function close(){
+        shell.classList.remove('open');
+        menu.hidden = true;
+        menu.style.visibility = '';
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+
+      function sync(){
+        var selected = select.options[select.selectedIndex];
+        value.textContent = selected ? selected.textContent : 'Choose option';
+        var buttons = menu.querySelectorAll('.lux-select-option');
+        for(var i = 0; i < buttons.length; i++){
+          buttons[i].setAttribute('aria-selected', String(select.options[i] && select.options[i].value === select.value));
+        }
+      }
+
+      function build(){
+        while(menu.firstChild) menu.removeChild(menu.firstChild);
+
+        function addOptionBtn(option){
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'lux-select-option';
+          btn.setAttribute('role', 'option');
+          btn.textContent = option.textContent;
+          btn.disabled = option.disabled;
+          btn.addEventListener('click', function(e){
+            e.stopPropagation();
+            select.value = option.value;
+            try {
+              select.dispatchEvent(new Event('change', { bubbles: true }));
+              select.dispatchEvent(new Event('input', { bubbles: true }));
+            } catch(err) {
+              var ev = document.createEvent('HTMLEvents');
+              ev.initEvent('change', true, false);
+              select.dispatchEvent(ev);
+            }
+            sync();
+            close();
+            try { trigger.focus(); } catch(err) {}
+          });
+          btn.addEventListener('keydown', function(e){
+            var opts = Array.prototype.slice.call(menu.querySelectorAll('.lux-select-option:not(:disabled)'));
+            var at = opts.indexOf(btn);
+            if((e.key === 'ArrowDown' || e.key === 'ArrowUp') && opts.length){
+              e.preventDefault();
+              opts[(at + (e.key === 'ArrowDown' ? 1 : -1) + opts.length) % opts.length].focus();
+            }
+            if(e.key === 'Escape'){
+              e.preventDefault();
+              close();
+              trigger.focus();
+            }
+          });
+          menu.appendChild(btn);
+        }
+
+        Array.prototype.forEach.call(select.children, function(child){
+          if(child.tagName === 'OPTGROUP'){
+            var grp = document.createElement('div');
+            grp.className = 'lux-select-group-header';
+            grp.textContent = child.label;
+            menu.appendChild(grp);
+            Array.prototype.forEach.call(child.children, function(option){
+              addOptionBtn(option);
+            });
+          } else if(child.tagName === 'OPTION'){
+            addOptionBtn(child);
+          }
+        });
+        sync();
+      }
+
+      trigger.addEventListener('click', function(e){
+        e.stopPropagation();
+        var shouldOpen = menu.hidden;
+        closeOthers(record);
+        if(!shouldOpen){ close(); return; }
+        shell.classList.add('open');
+        trigger.setAttribute('aria-expanded', 'true');
+        position();
+        var active = menu.querySelector('[aria-selected="true"]') || menu.querySelector('.lux-select-option:not(:disabled)');
+        if(active){ try { active.focus(); } catch(err) {} }
+      });
+
+      trigger.addEventListener('keydown', function(e){
+        if(e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          if(menu.hidden) trigger.click();
+          else {
+            var active = menu.querySelector('[aria-selected="true"]');
+            if(active) active.focus();
+          }
+        }
+      });
+
+      select.addEventListener('change', sync);
+      select.addEventListener('input', sync);
+
+      document.addEventListener('pointerdown', function(e){
+        if(!shell.contains(e.target) && !menu.contains(e.target)) close();
+      });
+
+      document.addEventListener('keydown', function(e){
+        if(e.key === 'Escape' && !menu.hidden){
+          close();
+          trigger.focus();
+        }
+      });
+
+      window.addEventListener('resize', function(){
+        if(!menu.hidden) window.requestAnimationFrame(position);
+      });
+
+      build();
+    }
+
+    var selects = document.querySelectorAll('select');
+    for(var i = 0; i < selects.length; i++){
+      try { enhance(selects[i], i); } catch(err) {}
+    }
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initLUXSelects);
+  else initLUXSelects();
+})();
+</script>
+
+
+
+
+
+<script>
+(function(){
+  var sections={
+    room:{title:'Room setup',subtitle:'Set your room dimensions and lighting target.'},
+    fixtures:{title:'Choose fixtures',subtitle:'Select a luminaire and define the calculation method.'},
+    results:{title:'Lighting results',subtitle:'Review fixture quantity, maintained lux and connected load.'},
+    energy:{title:'Energy profile',subtitle:'Estimate operating energy and monthly electricity cost.'},
+    layout:{title:'Fixture layout',subtitle:'Inspect the preliminary fixture arrangement for your room.'}
+  };
+  var tabs=Array.prototype.slice.call(document.querySelectorAll('.mobile-nav [data-tab]'));
+  var screens=Array.prototype.slice.call(document.querySelectorAll('.mobile-screen[data-screen]'));
+  var title=document.getElementById('mobileScreenTitle');
+  var subtitle=document.getElementById('mobileScreenSubtitle');
+  var kicker=document.getElementById('mobileScreenKicker');
+  var progress=document.getElementById('mobileProgressFill');
+  var active='room';
+  function activate(id,moveFocus){
+    if(!sections[id])return;
+    active=id;
+    var isMobile = window.innerWidth <= 850;
+    tabs.forEach(function(tab,index){
+      var selected=tab.dataset.tab===id;
+      tab.classList.toggle('active',selected);
+      tab.setAttribute('aria-selected',String(selected));
+      tab.tabIndex=selected?0:-1;
+      if(selected&&moveFocus)tab.focus();
+    });
+    screens.forEach(function(screen){
+      var selected=screen.dataset.screen===id;
+      screen.classList.toggle('active',selected);
+      screen.classList.remove('screen-enter');
+      screen.setAttribute('aria-hidden',String(isMobile && !selected));
+      screen.setAttribute('role',isMobile?'tabpanel':'region');
+      if(isMobile){
+        screen.setAttribute('aria-labelledby','tab-'+screen.dataset.screen);
+        screen.removeAttribute('aria-label');
+      } else {
+        screen.removeAttribute('aria-labelledby');
+        screen.setAttribute('aria-label',sections[screen.dataset.screen].title);
+      }
+      if(selected && isMobile){
+        void screen.offsetWidth;
+        screen.classList.add('screen-enter');
+      }
+    });
+    var index=['room','fixtures','results','energy','layout'].indexOf(id);
+    if(title)title.textContent=sections[id].title;
+    if(subtitle)subtitle.textContent=sections[id].subtitle;
+    if(kicker)kicker.textContent='STEP '+String(index+1).padStart(2,'0')+' / 05';
+    if(progress)progress.style.width=((index+1)*20)+'%';
+    if(isMobile){
+      window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
+    }
+  }
+  window.luxActivateTab = activate;
+  tabs.forEach(function(tab,index){
+    tab.addEventListener('click',function(){activate(tab.dataset.tab,false);});
+    tab.addEventListener('keydown',function(event){
+      if(event.key!=='ArrowLeft'&&event.key!=='ArrowRight'&&event.key!=='Home'&&event.key!=='End')return;
+      event.preventDefault();
+      var next=event.key==='Home'?0:event.key==='End'?tabs.length-1:(index+(event.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;
+      activate(tabs[next].dataset.tab,true);
+    });
+  });
+  activate('room',false);
+  window.addEventListener('resize',function(){ activate(active,false); });
+  var toast=document.getElementById('luxToast');
+  var toastTimer=null;
+  function notify(message){
+    if(!toast)return;
+    window.clearTimeout(toastTimer);
+    toast.textContent=message;
+    toast.classList.add('visible');
+    toastTimer=window.setTimeout(function(){toast.classList.remove('visible');},2100);
+  }
+  var calculate=document.getElementById('calculate');
+  var reset=document.getElementById('reset');
+  if(calculate)calculate.addEventListener('click',function(){
+    calculate.classList.add('is-loading');calculate.setAttribute('aria-busy','true');
+    window.setTimeout(function(){calculate.classList.remove('is-loading');calculate.removeAttribute('aria-busy');},420);
+    notify('Lighting calculation updated');
+  });
+  if(reset)reset.addEventListener('click',function(){notify('Design values restored');});
+})();
+</script>
+
+
+<script>
+(function(){
+  var toggle=document.getElementById('mobileMenuToggle');
+  var nav=document.querySelector('.desktop-nav');
+  if(!toggle||!nav)return;
+  function closeMenu(){nav.classList.remove('mobile-open');toggle.setAttribute('aria-expanded','false');toggle.setAttribute('aria-label','Open navigation menu');toggle.textContent='☰';}
+  toggle.addEventListener('click',function(){var open=!nav.classList.contains('mobile-open');nav.classList.toggle('mobile-open',open);toggle.setAttribute('aria-expanded',String(open));toggle.setAttribute('aria-label',open?'Close navigation menu':'Open navigation menu');toggle.textContent=open?'×':'☰';});
+  nav.querySelectorAll('a').forEach(function(link){link.addEventListener('click',closeMenu);});
+  document.addEventListener('keydown',function(event){if(event.key==='Escape')closeMenu();});
+  document.addEventListener('pointerdown',function(event){if(nav.classList.contains('mobile-open')&&!nav.contains(event.target)&&!toggle.contains(event.target))closeMenu();});
+})();
+</script>
+
+<script>
+(function(){
+  var calculate=document.getElementById('calculate');
+  var dock=document.getElementById('mobileCalculateDock');
+  if(!calculate||!dock)return;
+  var originalParent=calculate.parentElement;
+  var reset=document.getElementById('reset');
+  function placeCalculate(){
+    if(calculate.parentElement!==originalParent){
+      if(reset&&reset.parentElement===originalParent)originalParent.insertBefore(calculate,reset);
+      else originalParent.appendChild(calculate);
+    }
+  }
+  placeCalculate();
+  window.addEventListener('resize',placeCalculate);
+})();
+</script>
+<div class="mobile-app-dock" id="mobileAppDock">
+  <button type="button" class="dock-btn-calc" id="dockCalcBtn">
+    <span>⚡</span>
+    <span>Calculate Lighting</span>
+  </button>
+  <button type="button" class="dock-btn-reset" id="dockResetBtn" title="Reset Values">
+    <span>↺</span>
+  </button>
+</div>
+<div class="lux-toast" id="luxToast" role="status" aria-live="polite"></div>
+
+
+<script>
+(function(){
+  var dockCalc = document.getElementById('dockCalcBtn');
+  var origCalc = document.getElementById('calculate');
+  var dockReset = document.getElementById('dockResetBtn');
+  var origReset = document.getElementById('reset');
+  var toast = document.getElementById('luxToast');
+  var toastTimer = null;
+
+  function showToast(msg){
+    if(!toast) return;
+    window.clearTimeout(toastTimer);
+    toast.textContent = msg;
+    toast.classList.add('visible');
+    toastTimer = window.setTimeout(function(){ toast.classList.remove('visible'); }, 2200);
+  }
+
+  if(dockCalc && origCalc){
+    dockCalc.addEventListener('click', function(){
+      dockCalc.classList.add('is-loading');
+      origCalc.click();
+      window.setTimeout(function(){
+        dockCalc.classList.remove('is-loading');
+        showToast('Photometrics recalculated ⚡');
+      }, 350);
+    });
+  }
+
+  if(dockReset && origReset){
+    dockReset.addEventListener('click', function(){
+      origReset.click();
+      showToast('Settings reset to default ↺');
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
